@@ -104,7 +104,7 @@ async fn softdevice_task(sd: &'static Softdevice) {
 async fn ble_task(sd: &'static Softdevice) {
     let config = {
         let mut config = central::ScanConfig::default();
-        config.timeout = 100;
+        config.timeout = 1000;
         config
     };
     let res = central::scan(sd, &config, |params| -> Option<bool> {unsafe {
@@ -140,8 +140,8 @@ async fn ble_task(sd: &'static Softdevice) {
             info!("value {}: {:x}", key, value);
             data = &data[len+1..];
         }
-        // None
-        Some(true)
+        None
+        // Some(true)
     }})
     .await;
     // unwrap!(res);
